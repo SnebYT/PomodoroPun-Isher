@@ -23,7 +23,7 @@ function App() {
           return prev-1;
         }
       });
-    }, 1000))
+    }, 60000))
     setIsPaused(false)
   }
 
