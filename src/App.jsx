@@ -1,4 +1,4 @@
-import { useState} from "react"
+import { useState, useEffect} from "react"
 import Card from "./Card";
 import warningsfx from './assets/warning.mp3'
 import failsfx from './assets/fail.mp3'
@@ -18,6 +18,12 @@ function App() {
   const [playOutro] = useSound(outrosfx)
   const [playFail] = useSound(failsfx)
 
+  useEffect(() => {
+        const userTime = JSON.parse(localStorage.getItem('totalTime')) || 30;
+        setTime(Math.floor(userTime/60));
+        setSecTime(userTime%60);
+    }, []);
+
   const handleStart = () => {
     setWarninged(false);
     setJoke("");
@@ -35,6 +41,7 @@ function App() {
 
       setTime(Math.floor(totalSeconds/60));
       setSecTime(totalSeconds%60);
+      localStorage.setItem('totalTime', totalSeconds)
     }, 1000)
     setTimeInterval(id);
   }
