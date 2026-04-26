@@ -1,5 +1,9 @@
-import { useState } from "react"
+import { useState} from "react"
 import Card from "./Card";
+import warningsfx from './assets/warning.mp3'
+import failsfx from './assets/fail.mp3'
+import outrosfx from './assets/outro.mp3'
+import useSound from "use-sound";
 
 function App() {
   const [time, setTime] = useState(30);
@@ -10,6 +14,9 @@ function App() {
   const [originalTime, setOriginalTime] = useState(30);
   const [originalSecTime, setOriginalSecTime] = useState(0);
   const [joke, setJoke] = useState("");
+  const [playWarn] = useSound(warningsfx)
+  const [playOutro] = useSound(outrosfx)
+  const [playFail] = useSound(failsfx)
 
   const handleStart = () => {
     setWarninged(false);
@@ -19,6 +26,7 @@ function App() {
     let totalSeconds = parseInt(time || 0) * 60 + parseInt(secTime || 0);
     const id = setInterval(() => {
       if(totalSeconds<= 0){
+        playOutro()
         clearInterval(id)
         setIsPaused(true)
         return
@@ -50,18 +58,20 @@ function App() {
 
   const handleStop = () => {
     if(!warninged){
-      alert("If you try to stop the timer prematurely again it will trigger a punishment and the Timer will be reset!");
+      playWarn()
       setWarninged(true);
+      setTimeout(() => {alert("If you try to stop the timer prematurely again it will trigger a punishment and the Timer will be reset!")},700);
+      
     }
     else{
       getMeme()
+      playFail()
       clearInterval(timeInterval);
       setIsPaused(true)
       setTime(originalTime);
       setSecTime(originalSecTime)
     }
   }
-
   // useEffect(() => {
   //   if(time <= 0){
   //     handleStop();
