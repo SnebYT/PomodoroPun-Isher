@@ -21,8 +21,6 @@ function Card({ joke, onComplete }) {
     <div className="absolute inset-0 bg-black flex flex-col items-center justify-center z-50">
       <div className="text-center px-10">
         <p className="text-3xl text-white mb-8">{joke}</p>
-        
-        {/* Visual progress circle or just the number */}
         <div className="text-orange-500 font-mono text-xl border-2 border-orange-500 rounded-full w-12 h-12 flex items-center justify-center mx-auto">
           {timer}
         </div>
