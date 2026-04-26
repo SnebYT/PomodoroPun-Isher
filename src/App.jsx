@@ -50,7 +50,7 @@ function App() {
 
   const handleStop = () => {
     if(!warninged){
-      alert("If you stop the timer prematurely it will trigger a dad joke and reset the Timer!");
+      alert("If you try to stop the timer prematurely again it will trigger a punishment and the Timer will be reset!");
       setWarninged(true);
     }
     else{
